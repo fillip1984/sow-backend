@@ -66,7 +66,7 @@ public class PostController {
         existingPost.setTitle(post.getTitle());
         existingPost.setShortDescription(post.getShortDescription());
         existingPost.setContents(post.getContents());
-        existingPost.setAuthors(post.getAuthors());
+        existingPost.setAuthor(post.getAuthor());
 
         return ResponseEntity.ok(postService.save(existingPost));
     }

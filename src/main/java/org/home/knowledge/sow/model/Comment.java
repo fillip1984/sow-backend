@@ -3,6 +3,7 @@ package org.home.knowledge.sow.model;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,4 +29,7 @@ public class Comment extends AbstractEntity {
     @NotBlank
     @Size(min = 5, max = 1000)
     private String text;
+
+    @ManyToOne
+    private Post post;
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,11 +35,11 @@ public class Author extends AbstractEntity {
     @Size(max = 500)
     private String bio;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
-    @ManyToMany
-    private List<Comment> comments;
+    // @ManyToMany
+    // private List<Comment> comments;
 
     // TODO: back by User or influencer so we can tie authors back to employees or
     // non-employees

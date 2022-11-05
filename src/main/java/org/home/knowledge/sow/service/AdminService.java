@@ -55,7 +55,7 @@ public class AdminService {
 
         Post javaPost = Post.builder()
                             .tags(List.of(javaTag))
-                            .authors(List.of(philAuthor))
+                            .author(philAuthor)
                             .title("Java 9 through 17, what was enhanced")
                             .shortDescription("A brief intro to what enhancements were made to Java from 9 to 17")
                             .contents("Java 1.8 or less commonly referred to as 8 was the most used version of Java. Since then, 9 through 17 have come up with 17 being the latet long term support (LTS) version of Java")
@@ -115,16 +115,8 @@ public class AdminService {
             var importedPosts = data.getPosts().stream().map(post -> {
                 var beforeId = post.getId();
                 // update ids of author and tags prior to save
-                var updatedAuthors = post.getAuthors().stream().map(author -> {
-                    var afterId = authorIdsBeforeAndAfter.get(author.getId());
-                    Optional<Author> potentialAuthor = data.getAuthors().stream().filter(anAuthor -> anAuthor.getId().equals(afterId)).findFirst();
-                    if (potentialAuthor.isPresent()) {
-                        return potentialAuthor.get();
-                    } else {
-                        throw new RuntimeException("Unable tod find author. Previous id: " + author.getId());
-                    }
-                }).collect(Collectors.toList());
-                post.setAuthors(updatedAuthors);
+                var updatedAuthor = post.getAuthor();
+                post.setAuthor(updatedAuthor);
 
                 var updatedTags = post.getTags().stream().map(tag -> {
                     var afterId = tagIdsBeforeAndAfter.get(tag.getId());
