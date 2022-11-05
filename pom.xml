@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.home.knowledge</groupId>
-	<artifactId>sow-knowledge</artifactId>
+	<artifactId>sow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sow-knowledge</name>
+	<name>sow</name>
 	<description>sow project template</description>
 	<properties>
 		<java.version>17</java.version>
