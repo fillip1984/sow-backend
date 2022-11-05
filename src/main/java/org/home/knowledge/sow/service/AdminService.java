@@ -50,7 +50,8 @@ public class AdminService {
                          .build();
 
         Author philAuthor = Author.builder()
-                            .name("Phillip Williams")
+                            .firstName("Williams")
+                            .lastName("Williams")
                             .build();
 
         Post javaPost = Post.builder()

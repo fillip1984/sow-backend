@@ -59,7 +59,9 @@ public class AuthorController {
         log.info("Updating author: {}", author);
 
         var existingAuthor = authorService.findById(id);
-        existingAuthor.setName(author.getName());
+        existingAuthor.setFirstName(author.getFirstName());
+        existingAuthor.setLastName(author.getLastName());
+        existingAuthor.setPreferredName(author.getPreferredName());
         existingAuthor.setBio(author.getBio());
 
         return ResponseEntity.ok(authorService.save(existingAuthor));
