@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample</title>
+</head>
+
+<body>
+    <h1>Hello</h1>
+    <p>This page is a stand in while we wait for a front end to be added.
+        It should be replaced once a front end is built.</p>
+    <h2>End points of interest</h2>
+    <ul>
+        <li><a href="">Here</a></li>
+        <li><a href="actuator" target="_blank">SpringBoot Actuator</a>
+            <br>
+            <small>Spring boot actuator exposes a number of useful links. Links such as /beans that shows all classes
+                tracked by spring, /health which shows application status, /info which has been customized to show most
+                pertinent info</small>
+        </li>
+    </ul>
+
+    <h2>Swagger/Open API</h2>
+    Swagger, now being rebranded as OpenAPI, exposes useful Rest info and a means to test things out.
+    <ul>
+        <li>
+            <a href="v3/api-docs/" target="_blank">API Docs</a>
+        </li>
+        <li>
+            <a href="swagger-ui.html" target="_blank">UI Console</a>
+        </li>
+    </ul>
+
+    <h2>H2 database (if enabled)</h2>
+    H2 is an embedded database backed by either memory or file storage. It is useful for testing/development since you
+    don't have to install and configure an actual database. This console allows for you to interact with the database.
+    <ul>
+        <li><a href="h2-console" target="_blank">H2 Console</a></li>
+    </ul>
+
+    <h2>Sample Data</h2>
+    Self explanatory I hope, these options can be used to load sample data, import json, or export json from the
+    database. After you load/import the database you can use either the H2 link to query and see what was loaded or use
+    the Swagger links to retrieve the json for the loaded data.
+    <ul>
+        <li><a href="admin/load-sample-data" target="_blank">Load Sample Data</a></li>
+        <li><a href="admin/export" target="_blank">Export</a></li>
+        <li>Import wasn't implemented but possible if you wish to implement</li>
+    </ul>
+</body>
+
+</html>
