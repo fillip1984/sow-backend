@@ -3,9 +3,9 @@ package org.home.knowledge.sow.controller;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.Tag;
 import org.home.knowledge.sow.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -24,11 +26,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TagController {
 
-    @Autowired
-    private TagService tagService;
+    private final TagService tagService;
+
+    public TagController(TagService tagService) {
+        this.tagService = tagService;
+    }
 
     // create
     @PostMapping
+    @JsonView(Views.Public.class)
     public ResponseEntity<Tag> save(@RequestBody Tag tag) {
         log.info("Saving tag: {}", tag);
         return ResponseEntity.ok(tagService.save(tag));
@@ -36,6 +42,7 @@ public class TagController {
 
     // read
     @GetMapping
+    @JsonView(Views.Public.class)
     public ResponseEntity<List<Tag>> findAll(@RequestParam(required = false) String query) {
         if (StringUtils.isBlank(query)) {
             log.info("Retrieving all tags");
@@ -47,6 +54,7 @@ public class TagController {
     }
 
     @GetMapping("/{id}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<Tag> findById(@PathVariable Long id) {
         log.info("Retrieving tag by id: {}", id);
         return ResponseEntity.ok(tagService.findById(id));
@@ -54,6 +62,7 @@ public class TagController {
 
     // update
     @PutMapping("/{id}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<Tag> update(@PathVariable Long id, @RequestBody Tag tag) {
         log.info("Updating tag: {}", tag);
 

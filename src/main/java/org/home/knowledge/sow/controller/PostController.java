@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.Post;
 import org.home.knowledge.sow.service.PostService;
 import org.home.knowledge.sow.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -26,14 +28,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PostController {
 
-    @Autowired
-    private PostService postService;
+    private final PostService postService;
+    private final TagService tagService;
 
-    @Autowired
-    private TagService tagService;
+    public PostController(PostService postService, TagService tagService) {
+        this.postService = postService;
+        this.tagService = tagService;
+    }
 
     // create
     @PostMapping
+    @JsonView(Views.Public.class)
     public ResponseEntity<Post> save(@RequestBody Post post) {
         log.info("Saving post: {}", post);
         return ResponseEntity.ok(postService.save(post));
@@ -41,6 +46,7 @@ public class PostController {
 
     // read
     @GetMapping
+    @JsonView(Views.Public.class)
     public ResponseEntity<List<Post>> findAll(@RequestParam(required = false) String q) {
         if (StringUtils.isNotBlank(q)) {
             log.info("Retrieving all posts which contain: {}", q);
@@ -52,6 +58,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<Post> findById(@PathVariable Long id) {
         log.info("Retrieving post by id: {}", id);
         return ResponseEntity.ok(postService.findById(id));
@@ -59,6 +66,7 @@ public class PostController {
 
     // update
     @PutMapping("/{id}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<Post> update(@PathVariable Long id, @RequestBody Post post) {
         log.info("Updating post: {}", post);
 
@@ -80,6 +88,7 @@ public class PostController {
 
     // tag endpoints
     @PutMapping("/{postId}/tags/{tagId}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<Boolean> addTagById(@PathVariable Long postId, @PathVariable Long tagId) {
         log.info("Adding tag with id: {} to post with id: {}", tagId, postId);
         var tag = tagService.findById(tagId);

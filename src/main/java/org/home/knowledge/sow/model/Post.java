@@ -14,7 +14,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.spec.AbstractEntity;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,20 +34,22 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonView(Views.Public.class)
 public class Post extends AbstractEntity {
     @NotNull
     @NotBlank
-    @Size(max = 100)
+    @Size(min = 5, max = 100)
     private String title;
 
     @NotNull
     @NotBlank
-    @Size(max = 250)
+    @Size(min = 10, max = 250)
     private String shortDescription;
 
     @NotNull
     @NotBlank
-    @Size(max = 9000)
+    @Size(min = 10, max = 9000)
     private String contents;
 
     @NotNull

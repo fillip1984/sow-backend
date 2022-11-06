@@ -2,11 +2,8 @@ package org.home.knowledge.sow.controller;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.home.knowledge.sow.model.dto.DataExport;
 import org.home.knowledge.sow.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -25,11 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
+    private final ObjectMapper objectMapper;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    public AdminController(AdminService adminService, ObjectMapper objectMapper) {
+        this.adminService = adminService;
+        this.objectMapper = objectMapper;
+    }
 
     @GetMapping("/load-sample-data")
     public ResponseEntity<String> loadSampleData() {

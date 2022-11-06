@@ -10,8 +10,8 @@ import javax.transaction.Transactional;
 import org.home.knowledge.sow.model.Author;
 import org.home.knowledge.sow.model.Post;
 import org.home.knowledge.sow.model.Tag;
+import org.home.knowledge.sow.model.Topic;
 import org.home.knowledge.sow.model.dto.DataExport;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,16 +24,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminService {
 
-    @Autowired
-    private TagService tagService;
+    private final PostService postService;
+    private final AuthorService authorService;
+    private final TopicService topicService;
+    private final TagService tagService;
+    private final CommentService commentService;
 
-    @Autowired
-    private AuthorService authorService;
+    public AdminService(PostService postService, AuthorService authorService, TopicService topicService,
+            TagService tagService, CommentService commentService) {
+        this.postService = postService;
+        this.authorService = authorService;
+        this.topicService = topicService;
+        this.tagService = tagService;
+        this.commentService = commentService;
+    }
 
-    @Autowired
-    private PostService postService;
-
-    @Transactional
     public void loadSampleData() {
         log.info("Loading sample data");
         // TODO: verify that there is no better method of creating a system user context
@@ -43,36 +48,50 @@ public class AdminService {
         context.setAuthentication(systemAuthentication);
         SecurityContextHolder.setContext(context);
 
+        var topics = topicService.saveAll(buildSampleTopics());
+        var javaTopic = topics.stream().filter(topic -> topic.getName().equals("Java")).findFirst().get();
+
         // @formatter:off
-        Tag javaTag = Tag.builder()
-                         .name("Java")
-                         .description("General Java information")
-                         .build();
+        // Tag javaTag = Tag.builder()
+        //                  .name("Java")
+        //                  .description("General Java information")
+        //                  .build();
 
         Author philAuthor = Author.builder()
                             .firstName("Williams")
                             .lastName("Williams")
                             .build();
 
+        // var comment = Comment.builder()
+        //                     .text("What a great post, please write more")
+        //                     .build();
+
         Post javaPost = Post.builder()
-                            .tags(List.of(javaTag))
+                            .topic(javaTopic)
+                            // .tags(List.of(javaTag))
+                            // .comments(List.of(comment))
                             .author(philAuthor)
                             .title("Java 9 through 17, what was enhanced")
                             .shortDescription("A brief intro to what enhancements were made to Java from 9 to 17")
                             .contents("Java 1.8 or less commonly referred to as 8 was the most used version of Java. Since then, 9 through 17 have come up with 17 being the latet long term support (LTS) version of Java")
                             .build();
+
+        //javaTag.setPosts(List.of(javaPost));
+        //philAuthor.setPosts(List.of(javaPost));
+        //comment.setPost(javaPost);
+
         // @formatter:on
 
-        javaTag = tagService.save(javaTag);
+        // javaTag = tagService.save(javaTag);
         philAuthor = authorService.save(philAuthor);
         javaPost = postService.save(javaPost);
 
         // retrieve fresh
-        Post testPost = postService.findById(javaPost.getId());
+        // Post testPost = postService.findById(javaPost.getId());
 
         // log system user back out
         SecurityContextHolder.setContext(SecurityContextHolder.createEmptyContext());
-        log.info("Retrieved java post as test: {}", testPost);
+        log.info("Loaded sample data");
     }
 
     /**
@@ -173,6 +192,26 @@ public class AdminService {
             throw new RuntimeException(msg, e);
         }
 
+    }
+
+    private List<Topic> buildSampleTopics() {
+        var java = Topic.builder()
+                .name("Java")
+                .description(
+                        "Java related posts. This is a generic topic and there are more suitable topics for specific Java related things such as Spring, Hibernate/JPA, etc")
+                .build();
+        var react = Topic.builder()
+                .name("React")
+                .description(
+                        "React related posts. This is a generic topic and there are more suitable topics for specific React related things such as NextJS, hooks, state management, etc")
+                .build();
+        var tooling = Topic.builder()
+                .name("Tools")
+                .description(
+                        "Tool related posts. Suitable posts for this topic include IDE, versions of programming runtimes, middleware, etc but should not include libraries")
+                .build();
+
+        return List.of(java, react, tooling);
     }
 
 }

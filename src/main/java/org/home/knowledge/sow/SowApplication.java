@@ -2,6 +2,7 @@ package org.home.knowledge.sow;
 
 import java.net.InetAddress;
 
+import org.home.knowledge.sow.service.AdminService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -86,6 +87,14 @@ public class SowApplication {
 	 */
 	@EventListener
 	void onApplicationEvent(ApplicationStartedEvent event) {
+		// Not my favorite solution to a problem I ran into but when I started to use
+		// SampleDataRunner to load sample data this scrolled off the
+		// console defeating the purpose of even outputting points of interest. Until we
+		// can figure out a way to listen for CommandLineRunners to complete and switch
+		// up the event we're listening for I'm just triggering the loadSampleData
+		// function from here
+		event.getApplicationContext().getBean(AdminService.class).loadSampleData();
+
 		try {
 			var address = InetAddress.getLocalHost().getHostName();
 			var addressBaseUrl = "http://" + address + ":" + serverPort + serverContextPath;
