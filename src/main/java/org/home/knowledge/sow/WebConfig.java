@@ -23,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
         // See: https://www.baeldung.com/spring-cors
         // @formatter:off
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "http://localhost:5173")
+                .allowedOrigins("http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:5173")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .exposedHeaders("Content-Type", "Content-Disposition", "Pragma");

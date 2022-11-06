@@ -1,8 +1,11 @@
 package org.home.knowledge.sow.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,4 +34,7 @@ public class Topic extends AbstractEntity {
 
     @Size(max = 250)
     private String description;
+
+    @OneToMany(mappedBy = "topic")
+    private List<Post> posts;
 }

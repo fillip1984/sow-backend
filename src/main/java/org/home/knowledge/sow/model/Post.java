@@ -58,4 +58,7 @@ public class Post extends AbstractEntity {
     @ManyToMany
     @JoinTable(name = "Post_Tag", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
     private List<Tag> tags;
+
+    @ManyToOne
+    private Topic topic;
 }
