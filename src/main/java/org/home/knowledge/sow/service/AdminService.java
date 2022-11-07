@@ -58,7 +58,7 @@ public class AdminService {
         //                  .build();
 
         Author philAuthor = Author.builder()
-                            .firstName("Williams")
+                            .firstName("Phillip")
                             .lastName("Williams")
                             .build();
 
