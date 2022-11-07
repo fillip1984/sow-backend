@@ -17,9 +17,8 @@ import javax.validation.constraints.Size;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.spec.AbstractEntity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +33,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonView(Views.Public.class)
 public class Post extends AbstractEntity {
     @NotNull
@@ -54,9 +52,13 @@ public class Post extends AbstractEntity {
 
     @NotNull
     @ManyToOne
+    @JsonIgnoreProperties("posts")
     private Author author;
 
+    // SEE this! FINALLY my json makes sense
+    // https://hellokoding.com/handling-circular-reference-of-jpa-hibernate-bidirectional-entity-relationships-with-jackson-jsonignoreproperties/
     @OneToMany(mappedBy = "post")
+    @JsonIgnoreProperties("posts")
     private List<Comment> comments;
 
     // TODO: see:
@@ -64,8 +66,10 @@ public class Post extends AbstractEntity {
     // or maybe See #3: https://www.baeldung.com/jpa-many-to-many
     @ManyToMany
     @JoinTable(name = "Post_Tag", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
+    @JsonIgnoreProperties("posts")
     private List<Tag> tags;
 
     @ManyToOne
+    @JsonIgnoreProperties("posts")
     private Topic topic;
 }

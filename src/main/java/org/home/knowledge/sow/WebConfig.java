@@ -30,4 +30,10 @@ public class WebConfig implements WebMvcConfigurer {
         // @formatter:on
     }
 
+    // TODO: I love that I finally found a solution to json serialization for
+    // circular references, see: //
+    // https://hellokoding.com/handling-circular-reference-of-jpa-hibernate-bidirectional-entity-relationships-with-jackson-jsonignoreproperties/,
+    // but I'd like to write a Jackson custom serializer that would inspect and skip
+    // collections that match parent... Maybe:
+    // https://stackoverflow.com/questions/26945580/jackson-serialization-how-to-ignore-superclass-properties
 }

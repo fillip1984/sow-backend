@@ -15,9 +15,8 @@ import javax.validation.constraints.Size;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.spec.AbstractEntity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +31,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonView(Views.Public.class)
 public class Tag extends AbstractEntity {
 
@@ -51,6 +49,7 @@ public class Tag extends AbstractEntity {
     // or maybe See #3: https://www.baeldung.com/jpa-many-to-many
     @ManyToMany
     @JoinTable(name = "Post_Tag", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
+    @JsonIgnoreProperties("tags")
     private List<Post> posts;
 
 }

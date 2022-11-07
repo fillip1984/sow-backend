@@ -13,9 +13,8 @@ import javax.validation.constraints.Size;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.spec.AbstractEntity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +29,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonView(Views.Public.class)
 public class Topic extends AbstractEntity {
 
@@ -43,5 +41,6 @@ public class Topic extends AbstractEntity {
     private String description;
 
     @OneToMany(mappedBy = "topic")
+    @JsonIgnoreProperties("topic")
     private List<Post> posts;
 }
