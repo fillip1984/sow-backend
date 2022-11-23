@@ -3,6 +3,7 @@ package org.home.knowledge.sow.service;
 import java.util.List;
 
 import org.home.knowledge.sow.model.Post;
+import org.home.knowledge.sow.model.dto.PostSummary;
 import org.home.knowledge.sow.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,16 @@ public class PostService {
     }
 
     // read
+    public List<PostSummary> findSummariesByTitleContaining(String q) {
+        log.info("Retrieving all post summaries which contain: {}", q);
+        return postRepository.findPostSummaryByTitleContainingIgnoreCase(q);
+    }
+
+    public List<PostSummary> findAllSummaries() {
+        log.info("Retrieving all post summaries");
+        return postRepository.findAllProjectedBy();
+    }
+
     public List<Post> findAll() {
         log.info("Retrieving all posts");
         return postRepository.findAll();

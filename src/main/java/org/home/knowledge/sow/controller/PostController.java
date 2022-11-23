@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.Post;
+import org.home.knowledge.sow.model.dto.PostSummary;
 import org.home.knowledge.sow.service.PostService;
 import org.home.knowledge.sow.service.TagService;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,18 @@ public class PostController {
     }
 
     // read
+    // read
+    @GetMapping("/summaries")
+    public ResponseEntity<List<PostSummary>> findAllSummaries(@RequestParam(required = false) String q) {
+        if (StringUtils.isNotBlank(q)) {
+            log.info("Retrieving all post summaries which contain: {}", q);
+            return ResponseEntity.ok(postService.findSummariesByTitleContaining(q));
+        } else {
+            log.info("Retrieving all post summaries");
+            return ResponseEntity.ok(postService.findAllSummaries());
+        }
+    }
+
     @GetMapping
     @JsonView(Views.Public.class)
     public ResponseEntity<List<Post>> findAll(@RequestParam(required = false) String q) {

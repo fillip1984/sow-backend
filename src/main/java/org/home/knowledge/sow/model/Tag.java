@@ -3,6 +3,7 @@ package org.home.knowledge.sow.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -12,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.spec.AbstractEntity;
 
@@ -47,7 +50,7 @@ public class Tag extends AbstractEntity {
     // TODO: see:
     // https://stackoverflow.com/questions/36803306/should-jointable-be-specified-in-both-sides-of-a-manytomany-relationship
     // or maybe See #3: https://www.baeldung.com/jpa-many-to-many
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Post_Tag", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
     @JsonIgnoreProperties("tags")
     private List<Post> posts;
