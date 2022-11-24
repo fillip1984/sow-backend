@@ -88,6 +88,8 @@ public class PostController {
         existingPost.setShortDescription(post.getShortDescription());
         existingPost.setContents(post.getContents());
         existingPost.setAuthor(post.getAuthor());
+        existingPost.setTopic(post.getTopic());
+        existingPost.setTags(post.getTags());
 
         return ResponseEntity.ok(postService.save(existingPost));
     }
