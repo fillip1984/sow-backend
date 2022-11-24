@@ -46,8 +46,7 @@ public class PostController {
     }
 
     // read
-    // read
-    @GetMapping("/summaries")
+    @GetMapping
     public ResponseEntity<List<PostSummary>> findAllSummaries(@RequestParam(required = false) String q) {
         if (StringUtils.isNotBlank(q)) {
             log.info("Retrieving all post summaries which contain: {}", q);
@@ -58,17 +57,18 @@ public class PostController {
         }
     }
 
-    @GetMapping
-    @JsonView(Views.Public.class)
-    public ResponseEntity<List<Post>> findAll(@RequestParam(required = false) String q) {
-        if (StringUtils.isNotBlank(q)) {
-            log.info("Retrieving all posts which contain: {}", q);
-            return ResponseEntity.ok(postService.findByTitleContaining(q));
-        } else {
-            log.info("Retrieving all posts");
-            return ResponseEntity.ok(postService.findAll());
-        }
-    }
+    // @GetMapping
+    // @JsonView(Views.Public.class)
+    // public ResponseEntity<List<Post>> findAll(@RequestParam(required = false)
+    // String q) {
+    // if (StringUtils.isNotBlank(q)) {
+    // log.info("Retrieving all posts which contain: {}", q);
+    // return ResponseEntity.ok(postService.findByTitleContaining(q));
+    // } else {
+    // log.info("Retrieving all posts");
+    // return ResponseEntity.ok(postService.findAll());
+    // }
+    // }
 
     @GetMapping("/{id}")
     @JsonView(Views.Public.class)
