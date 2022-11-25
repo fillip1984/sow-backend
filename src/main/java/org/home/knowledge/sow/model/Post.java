@@ -64,8 +64,10 @@ public class Post extends AbstractEntity {
 
     // SEE this! FINALLY my json makes sense
     // https://hellokoding.com/handling-circular-reference-of-jpa-hibernate-bidirectional-entity-relationships-with-jackson-jsonignoreproperties/
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Fetch(FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    // TODO: after upgrading to Springboot3 and hibernate 6 supplying fetch mode is
+    // no longer necessary?
+    // @Fetch(FetchMode.SUBSELECT)
     @JsonIgnoreProperties("post")
     @Builder.Default
     @ToString.Exclude
@@ -76,7 +78,9 @@ public class Post extends AbstractEntity {
     // or maybe See #3: https://www.baeldung.com/jpa-many-to-many
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "Post_Tag", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
-    @Fetch(FetchMode.SUBSELECT)
+    // TODO: after upgrading to Springboot3 and hibernate 6 supplying fetch mode is
+    // no longer necessary?
+    // @Fetch(FetchMode.SUBSELECT)
     @JsonIgnoreProperties("posts")
     @ToString.Exclude
     private List<Tag> tags;
