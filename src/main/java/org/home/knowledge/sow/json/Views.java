@@ -5,7 +5,8 @@ package org.home.knowledge.sow.json;
  * front end
  */
 public class Views {
-    // TODO: see, https://github.com/monitorjbl/json-view
+    // TODO: more ideas to make this easier if needed. See,
+    // https://github.com/monitorjbl/json-view
 
     public static class Public {
     }
