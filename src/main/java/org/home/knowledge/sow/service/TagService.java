@@ -3,8 +3,8 @@ package org.home.knowledge.sow.service;
 import java.util.List;
 
 import org.home.knowledge.sow.model.Tag;
+import org.home.knowledge.sow.model.dto.TagSummary;
 import org.home.knowledge.sow.repository.TagRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TagService {
 
-    @Autowired
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
+
+    public TagService(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
+    }
 
     // create
     public Tag save(Tag tag) {
@@ -28,14 +31,14 @@ public class TagService {
     }
 
     // read
-    public List<Tag> findAll() {
-        log.info("Retrieving all tags");
-        return tagRepository.findAll();
+    public List<TagSummary> findSummariesByNameContaining(String q) {
+        log.info("Retrieving all tag summaries which contain: {}", q);
+        return tagRepository.findTagSummariesByNameContainingIgnoreCase(q);
     }
 
-    public List<Tag> search(String query) {
-        log.info("Searching for all tags containing: {}", query);
-        return tagRepository.findByNameContainingIgnoreCase(query);
+    public List<TagSummary> findAllSummaries() {
+        log.info("Retrieving all tag summaries");
+        return tagRepository.findAllProjectedBy();
     }
 
     public Tag findById(Long id) {

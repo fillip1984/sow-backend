@@ -33,7 +33,7 @@ public class Comment extends AbstractEntity {
     @NotNull
     @NotBlank
     @Size(min = 5, max = 1000)
-    private String text;
+    private String content;
 
     @ManyToOne
     @JsonIgnoreProperties("comments")

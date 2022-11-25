@@ -1,15 +1,19 @@
 package org.home.knowledge.sow.model.dto;
 
-public interface AuthorSummary extends AbstractSummary {
+import org.springframework.beans.factory.annotation.Value;
 
-    String getFirstName();
+public interface AuthorSummary extends AbstractSummary {
 
     String getLastName();
 
+    String getFirstName();
+
     String getPreferredName();
 
+    @Value("#{target.firstName + ' ' + target.lastName}")
     String getFullNameFirstThenLast();
 
+    @Value("#{target.lastName + ', ' + target.firstName}")
     String getFullNameLastCommaFirst();
 
     String getBio();

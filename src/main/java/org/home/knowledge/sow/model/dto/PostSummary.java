@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 public interface PostSummary extends AbstractSummary {
 
-    Long getId();
-
     String getTitle();
 
     String getShortDescription();

@@ -3,8 +3,8 @@ package org.home.knowledge.sow.service;
 import java.util.List;
 
 import org.home.knowledge.sow.model.Topic;
+import org.home.knowledge.sow.model.dto.TopicSummary;
 import org.home.knowledge.sow.repository.TopicRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TopicService {
 
-    @Autowired
-    private TopicRepository topicRepository;
+    private final TopicRepository topicRepository;
+
+    public TopicService(TopicRepository topicRepository) {
+        this.topicRepository = topicRepository;
+    }
 
     // create
     public Topic save(Topic topic) {
@@ -28,9 +31,14 @@ public class TopicService {
     }
 
     // read
-    public List<Topic> findAll() {
-        log.info("Retrieving all topics");
-        return topicRepository.findAll();
+    public List<TopicSummary> findSummariesByNameContaining(String q) {
+        log.info("Retrieving all topic summaries which contain: {}", q);
+        return topicRepository.findTopicSummariesByNameContainingIgnoreCase(q);
+    }
+
+    public List<TopicSummary> findAllSummaries() {
+        log.info("Retrieving all topic summaries");
+        return topicRepository.findAllProjectedBy();
     }
 
     public Topic findById(Long id) {

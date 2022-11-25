@@ -5,7 +5,6 @@ import java.util.List;
 import org.home.knowledge.sow.model.Post;
 import org.home.knowledge.sow.model.dto.PostSummary;
 import org.home.knowledge.sow.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PostService {
 
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
+
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
 
     // create
     public Post save(Post post) {
@@ -31,7 +33,7 @@ public class PostService {
     // read
     public List<PostSummary> findSummariesByTitleContaining(String q) {
         log.info("Retrieving all post summaries which contain: {}", q);
-        return postRepository.findPostSummaryByTitleContainingIgnoreCase(q);
+        return postRepository.findPostSummariesByTitleContainingIgnoreCase(q);
     }
 
     public List<PostSummary> findAllSummaries() {
@@ -39,15 +41,15 @@ public class PostService {
         return postRepository.findAllProjectedBy();
     }
 
-    public List<Post> findAll() {
-        log.info("Retrieving all posts");
-        return postRepository.findAll();
-    }
+    // public List<Post> findAll() {
+    // log.info("Retrieving all posts");
+    // return postRepository.findAll();
+    // }
 
-    public List<Post> findByTitleContaining(String q) {
-        log.info("Retrieving all posts which contain: {}", q);
-        return postRepository.findByTitleContainingIgnoreCase(q);
-    }
+    // public List<Post> findByTitleContaining(String q) {
+    // log.info("Retrieving all posts which contain: {}", q);
+    // return postRepository.findPostSummariesByTitleContainingIgnoreCase(q);
+    // }
 
     public Post findById(Long id) {
         log.info("Retrieving post by id: {}", id);

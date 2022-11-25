@@ -13,8 +13,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.spec.AbstractEntity;
 

@@ -76,7 +76,7 @@ public class Post extends AbstractEntity {
     // or maybe See #3: https://www.baeldung.com/jpa-many-to-many
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "Post_Tag", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
-    @Fetch(FetchMode.SELECT)
+    @Fetch(FetchMode.SUBSELECT)
     @JsonIgnoreProperties("posts")
     @ToString.Exclude
     private List<Tag> tags;

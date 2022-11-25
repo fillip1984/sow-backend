@@ -3,8 +3,8 @@ package org.home.knowledge.sow.service;
 import java.util.List;
 
 import org.home.knowledge.sow.model.Comment;
+import org.home.knowledge.sow.model.dto.CommentSummary;
 import org.home.knowledge.sow.repository.CommentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CommentService {
 
-    @Autowired
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
+
+    public CommentService(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
     // create
     public Comment save(Comment comment) {
@@ -28,9 +31,9 @@ public class CommentService {
     }
 
     // read
-    public List<Comment> findAll() {
-        log.info("Retrieving all comments");
-        return commentRepository.findAll();
+    public List<CommentSummary> findAllSummaries() {
+        log.info("Retrieving all comment summaries");
+        return commentRepository.findAllProjectedBy();
     }
 
     public Comment findById(Long id) {

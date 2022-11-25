@@ -3,8 +3,8 @@ package org.home.knowledge.sow.service;
 import java.util.List;
 
 import org.home.knowledge.sow.model.Author;
+import org.home.knowledge.sow.model.dto.AuthorSummary;
 import org.home.knowledge.sow.repository.AuthorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AuthorService {
 
-    @Autowired
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
+
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
     // create
     public Author save(Author author) {
@@ -28,10 +31,25 @@ public class AuthorService {
     }
 
     // read
-    public List<Author> findAll() {
-        log.info("Retrieving all authors");
-        return authorRepository.findAll();
+    public List<AuthorSummary> findSummariesByNameContaining(String q) {
+        log.info("Retrieving all author summaries which contain: {}", q);
+        return authorRepository.findAuthorSummariesByNameContainingIgnoreCase(q);
     }
+
+    public List<AuthorSummary> findAllSummaries() {
+        log.info("Retrieving all author summaries");
+        return authorRepository.findAllProjectedBy();
+    }
+
+    // public List<Author> findAll() {
+    // log.info("Retrieving all authors");
+    // return authorRepository.findAll();
+    // }
+
+    // public List<Author> findByNameContaining(String q) {
+    // log.info("Retrieving all authors which contain: {}", q);
+    // return authorRepository.findByNameContainingIgnoreCase(q);
+    // }
 
     public Author findById(Long id) {
         log.info("Retrieving author by id: {}", id);
@@ -39,10 +57,10 @@ public class AuthorService {
                 .orElseThrow(() -> new RuntimeException("Unable to find author by id: " + id));
     }
 
-    public List<Author> findByNameContaining(String q) {
-        log.info("Retrieving all posts which contain: {}", q);
-        return authorRepository.findByNameContainingIgnoreCase(q);
-    }
+    // public List<Author> findByNameContaining(String q) {
+    // log.info("Retrieving all posts which contain: {}", q);
+    // return authorRepository.findByNameContainingIgnoreCase(q);
+    // }
 
     // update
     public Author update(Author author) {
