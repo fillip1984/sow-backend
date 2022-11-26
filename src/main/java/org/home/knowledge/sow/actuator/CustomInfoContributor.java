@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.home.knowledge.sow.commons.StringUtilities;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.actuate.info.Info.Builder;
@@ -36,8 +35,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomInfoContributor implements InfoContributor {
 
-    @Autowired
-    private ConfigurableApplicationContext applicationContext;
+    private final ConfigurableApplicationContext applicationContext;
+
+    public CustomInfoContributor(ConfigurableApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
     @Value("${application.actuator.bean.packages.to.include}")
     private String[] beanPackagesToInclude;

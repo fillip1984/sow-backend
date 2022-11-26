@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.Tag;
+import org.home.knowledge.sow.model.dto.TagSummary;
 import org.home.knowledge.sow.service.TagService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,14 +43,13 @@ public class TagController {
 
     // read
     @GetMapping
-    @JsonView(Views.Public.class)
-    public ResponseEntity<List<Tag>> findAll(@RequestParam(required = false) String query) {
-        if (StringUtils.isBlank(query)) {
-            log.info("Retrieving all tags");
-            return ResponseEntity.ok(tagService.findAll());
+    public ResponseEntity<List<TagSummary>> findAllSummaries(@RequestParam(required = false) String q) {
+        if (StringUtils.isNotBlank(q)) {
+            log.info("Retrieving all tag summaries which contain: {}", q);
+            return ResponseEntity.ok(tagService.findSummariesByNameContaining(q));
         } else {
-            log.info("Searching for all tags containing: {}", query);
-            return ResponseEntity.ok(tagService.search(query));
+            log.info("Retrieving all tag summaries");
+            return ResponseEntity.ok(tagService.findAllSummaries());
         }
     }
 

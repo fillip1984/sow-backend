@@ -2,8 +2,10 @@ package org.home.knowledge.sow.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.Topic;
+import org.home.knowledge.sow.model.dto.TopicSummary;
 import org.home.knowledge.sow.service.TopicService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,15 +43,14 @@ public class TopicController {
 
     // read
     @GetMapping
-    @JsonView(Views.Public.class)
-    public ResponseEntity<List<Topic>> findAll(@RequestParam(required = false) String q) {
-        // if (StringUtils.isNotBlank(q)) {
-        // log.info("Retrieving all topics which contain: {}", q);
-        // return ResponseEntity.ok(topicService.findByTitleContaining(q));
-        // } else {
-        log.info("Retrieving all topics");
-        return ResponseEntity.ok(topicService.findAll());
-        // }
+    public ResponseEntity<List<TopicSummary>> findAllSummaries(@RequestParam(required = false) String q) {
+        if (StringUtils.isNotBlank(q)) {
+            log.info("Retrieving all topic summaries which contain: {}", q);
+            return ResponseEntity.ok(topicService.findSummariesByNameContaining(q));
+        } else {
+            log.info("Retrieving all topic summaries");
+            return ResponseEntity.ok(topicService.findAllSummaries());
+        }
     }
 
     @GetMapping("/{id}")

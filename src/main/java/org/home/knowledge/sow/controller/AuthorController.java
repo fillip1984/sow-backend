@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.Author;
+import org.home.knowledge.sow.model.dto.AuthorSummary;
 import org.home.knowledge.sow.service.AuthorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,23 +43,22 @@ public class AuthorController {
 
     // read
     @GetMapping
-    @JsonView(Views.Public.class)
-    public ResponseEntity<List<Author>> findAll(@RequestParam(required = false) String q) {
+    public ResponseEntity<List<AuthorSummary>> findAllSummaries(@RequestParam(required = false) String q) {
         if (StringUtils.isNotBlank(q)) {
-            log.info("Retrieving all authors which contain: {}", q);
-            return ResponseEntity.ok(authorService.findByNameContaining(q));
+            log.info("Retrieving all author summaries which contain: {}", q);
+            return ResponseEntity.ok(authorService.findSummariesByNameContaining(q));
         } else {
 
-            log.info("Retrieving all authors");
-            return ResponseEntity.ok(authorService.findAll());
+            log.info("Retrieving all author summaries");
+            return ResponseEntity.ok(authorService.findAllSummaries());
         }
     }
 
     @GetMapping("/{id}")
-    @JsonView(Views.Public.class)
-    public ResponseEntity<Author> findById(@PathVariable Long id) {
+    // @JsonView(Views.Public.class)
+    public ResponseEntity<AuthorSummary> findById(@PathVariable Long id) {
         log.info("Retrieving author by id: {}", id);
-        return ResponseEntity.ok(authorService.findById(id));
+        return ResponseEntity.ok(authorService.findSummaryById(id));
     }
 
     // update
