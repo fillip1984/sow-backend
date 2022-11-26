@@ -21,36 +21,36 @@ public class CommentService {
 
     // create
     public Comment save(Comment comment) {
-        log.info("Saving comment: {}", comment);
+        log.trace("Saving comment: {}", comment);
         return commentRepository.save(comment);
     }
 
     public List<Comment> saveAll(List<Comment> comments) {
-        log.info("Saving list of comments");
+        log.trace("Saving list of comments");
         return commentRepository.saveAll(comments);
     }
 
     // read
     public List<CommentSummary> findAllSummaries() {
-        log.info("Retrieving all comment summaries");
+        log.trace("Retrieving all comment summaries");
         return commentRepository.findAllProjectedBy();
     }
 
     public Comment findById(Long id) {
-        log.info("Retrieving comment by id: {}", id);
+        log.trace("Retrieving comment by id: {}", id);
         return commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Unable to find comment by id: " + id));
     }
 
     // update
     public Comment update(Comment comment) {
-        log.info("Updating comment: {}", comment);
+        log.trace("Updating comment: {}", comment);
         return commentRepository.save(comment);
     }
 
     // delete
     public boolean deleteById(Long id) {
-        log.info("Deleting comment by id: {}", id);
+        log.trace("Deleting comment by id: {}", id);
         commentRepository.deleteById(id);
         return true;
     }

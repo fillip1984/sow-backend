@@ -21,51 +21,51 @@ public class PostService {
 
     // create
     public Post save(Post post) {
-        log.info("Saving post: {}", post);
+        log.trace("Saving post: {}", post);
         return postRepository.save(post);
     }
 
     public List<Post> saveAll(List<Post> posts) {
-        log.info("Saving list of posts");
+        log.trace("Saving list of posts");
         return postRepository.saveAll(posts);
     }
 
     // read
     public List<PostSummary> findSummariesByTitleContaining(String q) {
-        log.info("Retrieving all post summaries which contain: {}", q);
+        log.trace("Retrieving all post summaries which contain: {}", q);
         return postRepository.findPostSummariesByTitleContainingIgnoreCase(q);
     }
 
     public List<PostSummary> findAllSummaries() {
-        log.info("Retrieving all post summaries");
+        log.trace("Retrieving all post summaries");
         return postRepository.findAllProjectedBy();
     }
 
     // public List<Post> findAll() {
-    // log.info("Retrieving all posts");
+    // log.trace("Retrieving all posts");
     // return postRepository.findAll();
     // }
 
     // public List<Post> findByTitleContaining(String q) {
-    // log.info("Retrieving all posts which contain: {}", q);
+    // log.trace("Retrieving all posts which contain: {}", q);
     // return postRepository.findPostSummariesByTitleContainingIgnoreCase(q);
     // }
 
     public Post findById(Long id) {
-        log.info("Retrieving post by id: {}", id);
+        log.trace("Retrieving post by id: {}", id);
         return postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Unable to find post by id: " + id));
     }
 
     // update
     public Post update(Post post) {
-        log.info("Updating post: {}", post);
+        log.trace("Updating post: {}", post);
         return postRepository.save(post);
     }
 
     // delete
     public boolean deleteById(Long id) {
-        log.info("Deleting post by id: {}", id);
+        log.trace("Deleting post by id: {}", id);
         postRepository.deleteById(id);
         return true;
     }

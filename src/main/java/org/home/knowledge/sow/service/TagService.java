@@ -21,41 +21,41 @@ public class TagService {
 
     // create
     public Tag save(Tag tag) {
-        log.info("Saving tag: {}", tag);
+        log.trace("Saving tag: {}", tag);
         return tagRepository.save(tag);
     }
 
     public List<Tag> saveAll(List<Tag> tags) {
-        log.info("Saving list of tags");
+        log.trace("Saving list of tags");
         return tagRepository.saveAll(tags);
     }
 
     // read
     public List<TagSummary> findSummariesByNameContaining(String q) {
-        log.info("Retrieving all tag summaries which contain: {}", q);
+        log.trace("Retrieving all tag summaries which contain: {}", q);
         return tagRepository.findTagSummariesByNameContainingIgnoreCase(q);
     }
 
     public List<TagSummary> findAllSummaries() {
-        log.info("Retrieving all tag summaries");
+        log.trace("Retrieving all tag summaries");
         return tagRepository.findAllProjectedBy();
     }
 
     public Tag findById(Long id) {
-        log.info("Retrieving tag by id: {}", id);
+        log.trace("Retrieving tag by id: {}", id);
         return tagRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Unable to find tag by id: " + id));
     }
 
     // update
     public Tag update(Tag tag) {
-        log.info("Updating tag: {}", tag);
+        log.trace("Updating tag: {}", tag);
         return tagRepository.save(tag);
     }
 
     // delete
     public boolean deleteById(Long id) {
-        log.info("Deleting tag by id: {}", id);
+        log.trace("Deleting tag by id: {}", id);
         tagRepository.deleteById(id);
         return true;
     }

@@ -21,41 +21,41 @@ public class TopicService {
 
     // create
     public Topic save(Topic topic) {
-        log.info("Saving topic: {}", topic);
+        log.trace("Saving topic: {}", topic);
         return topicRepository.save(topic);
     }
 
     public List<Topic> saveAll(List<Topic> topics) {
-        log.info("Saving list of topics");
+        log.trace("Saving list of topics");
         return topicRepository.saveAll(topics);
     }
 
     // read
     public List<TopicSummary> findSummariesByNameContaining(String q) {
-        log.info("Retrieving all topic summaries which contain: {}", q);
+        log.trace("Retrieving all topic summaries which contain: {}", q);
         return topicRepository.findTopicSummariesByNameContainingIgnoreCase(q);
     }
 
     public List<TopicSummary> findAllSummaries() {
-        log.info("Retrieving all topic summaries");
+        log.trace("Retrieving all topic summaries");
         return topicRepository.findAllProjectedBy();
     }
 
     public Topic findById(Long id) {
-        log.info("Retrieving topic by id: {}", id);
+        log.trace("Retrieving topic by id: {}", id);
         return topicRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Unable to find topic by id: " + id));
     }
 
     // update
     public Topic update(Topic topic) {
-        log.info("Updating topic: {}", topic);
+        log.trace("Updating topic: {}", topic);
         return topicRepository.save(topic);
     }
 
     // delete
     public boolean deleteById(Long id) {
-        log.info("Deleting topic by id: {}", id);
+        log.trace("Deleting topic by id: {}", id);
         topicRepository.deleteById(id);
         return true;
     }
