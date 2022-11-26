@@ -14,7 +14,7 @@ public class HomeController {
     @GetMapping
     public String hello() {
         log.info("Welcome home");
-        return "index.html";
+        return "server-index.html";
     }
 
 }
