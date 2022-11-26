@@ -55,10 +55,10 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(Views.Public.class)
-    public ResponseEntity<Author> findById(@PathVariable Long id) {
+    // @JsonView(Views.Public.class)
+    public ResponseEntity<AuthorSummary> findById(@PathVariable Long id) {
         log.info("Retrieving author by id: {}", id);
-        return ResponseEntity.ok(authorService.findById(id));
+        return ResponseEntity.ok(authorService.findSummaryById(id));
     }
 
     // update

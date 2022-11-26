@@ -33,7 +33,7 @@ public class AuthorService {
     // read
     public List<AuthorSummary> findSummariesByNameContaining(String q) {
         log.trace("Retrieving all author summaries which contain: {}", q);
-        return authorRepository.findAuthorSummariesByNameContainingIgnoreCase(q);
+        return authorRepository.findAuthorSummariesByNamesContainingIgnoreCase(q);
     }
 
     public List<AuthorSummary> findAllSummaries() {
@@ -55,6 +55,12 @@ public class AuthorService {
         log.trace("Retrieving author by id: {}", id);
         return authorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Unable to find author by id: " + id));
+    }
+
+    public AuthorSummary findSummaryById(Long id) {
+        log.trace("Retrieving author summary by id: {}", id);
+        return authorRepository.findAuthorSummaryById(id)
+                .orElseThrow(() -> new RuntimeException("Unable to find author summary by id: " + id));
     }
 
     // public List<Author> findByNameContaining(String q) {
