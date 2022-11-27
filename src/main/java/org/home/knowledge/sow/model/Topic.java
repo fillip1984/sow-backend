@@ -32,12 +32,14 @@ import lombok.NoArgsConstructor;
 @JsonView(Views.Public.class)
 public class Topic extends AbstractEntity {
 
-    @Size(max = 100)
     @NotNull
     @NotBlank
+    @Size(min = 2, max = 100)
     private String name;
 
-    @Size(max = 250)
+    @NotNull
+    @NotBlank
+    @Size(min = 5, max = 250)
     private String description;
 
     @OneToMany(mappedBy = "topic")

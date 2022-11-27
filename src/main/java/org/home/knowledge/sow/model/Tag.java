@@ -35,14 +35,16 @@ import lombok.NoArgsConstructor;
 @JsonView(Views.Public.class)
 public class Tag extends AbstractEntity {
 
-    @Size(max = 50)
+    // was going to add min = 2 but what about the single letter programming
+    // languages: R, C, etc...
     @NotNull
     @NotBlank
+    @Size(max = 50)
     private String name;
 
-    @Size(max = 200)
     @NotNull
     @NotBlank
+    @Size(min = 5, max = 200)
     private String description;
 
     // TODO: see:

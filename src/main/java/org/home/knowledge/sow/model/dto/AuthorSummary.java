@@ -1,5 +1,6 @@
 package org.home.knowledge.sow.model.dto;
 
+import org.home.knowledge.sow.model.dto.spec.AbstractSummary;
 import org.springframework.beans.factory.annotation.Value;
 
 public interface AuthorSummary extends AbstractSummary {

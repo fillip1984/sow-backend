@@ -65,7 +65,12 @@ public class TopicController {
     @JsonView(Views.Public.class)
     public ResponseEntity<Topic> update(@PathVariable Long id, @RequestBody Topic topic) {
         log.info("Updating topic: {}", topic);
-        return ResponseEntity.ok(topicService.save(topic));
+
+        var existingTopic = topicService.findById(id);
+        existingTopic.setName(topic.getName());
+        existingTopic.setDescription(topic.getDescription());
+
+        return ResponseEntity.ok(topicService.save(existingTopic));
     }
 
     // delete
