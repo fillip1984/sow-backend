@@ -1,4 +1,4 @@
-package org.home.knowledge.sow.controller;
+package org.home.knowledge.sow.controller.spec;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

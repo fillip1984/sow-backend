@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.event.EventListener;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
+@ConfigurationPropertiesScan
 @Slf4j
 public class SowApplication {
 
