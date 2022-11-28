@@ -47,12 +47,17 @@ public class SowApplication {
 			var addressBaseUrl = "http://" + address + ":" + serverPort + serverContextPath;
 
 			log.info("Web server ready and waiting, good luck out there!\n"
+					+ "\n"
 					+ "\n		End points of interest:"
-					+ "\n			home -> " + addressBaseUrl
+					+ "\n			home -> " + addressBaseUrl + "/server-home"
+					+ "\n			health -> " + addressBaseUrl + "/actuator/health"
 					+ "\n			info -> " + addressBaseUrl + "/actuator/info"
 					+ "\n			environment -> " + addressBaseUrl + "/actuator/env"
-					+ "\n			health -> " + addressBaseUrl + "/actuator/health"
 					+ "\n			Spring Actuator -> " + addressBaseUrl + "/actuator"
+					+ "\n"
+					+ "\n"
+					+ "\n front end -> " + addressBaseUrl + "(will require that an index.html or controller be created to point to front end)"
+					+ "\n"
 					+ "\n");
 		} catch (Exception e) {
 			var msg = "Exception occurred while building url to display in console on startup";
