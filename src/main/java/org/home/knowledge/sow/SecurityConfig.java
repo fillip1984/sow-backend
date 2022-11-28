@@ -44,7 +44,7 @@ public class SecurityConfig {
                 // See:
                 // https://springframework.guru/using-the-h2-database-console-in-spring-boot-with-spring-security/
                 .headers(headers -> headers.frameOptions().disable())
-                .exceptionHandling(ex -> ex.accessDeniedPage("/accessDenied.html"));
+                .exceptionHandling(ex -> ex.accessDeniedPage("/error/accessDenied.html"));
 
         return http.build();
     }

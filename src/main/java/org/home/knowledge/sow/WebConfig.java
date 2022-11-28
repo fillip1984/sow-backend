@@ -2,6 +2,7 @@ package org.home.knowledge.sow;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,15 @@ import lombok.extern.slf4j.Slf4j;
 // controllers and also swagger
 // See: https://github.com/springdoc/springdoc-openapi/issues/236
 public class WebConfig implements WebMvcConfigurer {
+
+    // ended up not needing a view controller of any kind unless we want to lose the
+    // .html part when directing to the location
+    // @Override
+    // public void addViewControllers(ViewControllerRegistry registry) {
+    // log.info("Adding in route: /server-home, mapped to resource:
+    // server-home.html");
+    // registry.addViewController("/server-home").setViewName("server-home.html");
+    // }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
