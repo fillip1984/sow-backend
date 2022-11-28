@@ -17,6 +17,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.home.knowledge.sow.json.Views;
 import org.home.knowledge.sow.model.spec.AbstractEntity;
 
@@ -65,7 +67,7 @@ public class Post extends AbstractEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     // TODO: after upgrading to Springboot3 and hibernate 6 supplying fetch mode is
     // no longer necessary?
-    // @Fetch(FetchMode.SUBSELECT)
+    @Fetch(FetchMode.SUBSELECT)
     @JsonIgnoreProperties("post")
     @Builder.Default
     @ToString.Exclude
@@ -78,7 +80,7 @@ public class Post extends AbstractEntity {
     @JoinTable(name = "Post_Tag", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "post_id"))
     // TODO: after upgrading to Springboot3 and hibernate 6 supplying fetch mode is
     // no longer necessary?
-    // @Fetch(FetchMode.SUBSELECT)
+    @Fetch(FetchMode.SUBSELECT)
     @JsonIgnoreProperties("posts")
     @ToString.Exclude
     private List<Tag> tags;
