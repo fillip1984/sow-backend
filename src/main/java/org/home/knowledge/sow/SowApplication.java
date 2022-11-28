@@ -48,15 +48,15 @@ public class SowApplication {
 
 			log.info("Web server ready and waiting, good luck out there!\n"
 					+ "\n"
-					+ "\n			End points of interest:"
-					+ "\n					   home -> " + addressBaseUrl + "/server-home"
-					+ "\n					 health -> " + addressBaseUrl + "/actuator/health"
-					+ "\n					   info -> " + addressBaseUrl + "/actuator/info"
-					+ "\n	 			    environment -> " + addressBaseUrl + "/actuator/env"
-					+ "\n				Spring Actuator -> " + addressBaseUrl + "/actuator"
+					+ "\n  End points of interest:"
+					+ "\n               home -> " + addressBaseUrl + "/server-home"
+					+ "\n             health -> " + addressBaseUrl + "/actuator/health"
+					+ "\n               info -> " + addressBaseUrl + "/actuator/info"
+					+ "\n        environment -> " + addressBaseUrl + "/actuator/env"
+					+ "\n    Spring Actuator -> " + addressBaseUrl + "/actuator"
 					+ "\n"
 					+ "\n"
-					+ "\n 			front end -> " + addressBaseUrl
+					+ "\n    front end -> " + addressBaseUrl
 					+ " (will require that an index.html or controller be created to point to front end)"
 					+ "\n"
 					+ "\n");

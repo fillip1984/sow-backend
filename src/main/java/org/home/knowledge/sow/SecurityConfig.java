@@ -2,7 +2,7 @@ package org.home.knowledge.sow;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -29,15 +29,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // http://phillips-macbook-pro.local:7878/sow/h2-console/login.do?jsessionid=169664501c38e7fe9e26a442a19f3398
         http
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers("/home*/**", "/v3/api-docs*/**", "/actuator/health*/**").permitAll()
-                        .antMatchers("/h2-console*/**", "/actuator*/**", "/swagger-ui*/**").hasAnyRole("ADMIN")
+                        .antMatchers("/", "/home/**", "/v3/api-docs/**", "/actuator/health/**").permitAll()
+                        .antMatchers("/h2-console/**", "/actuator/**", "/swagger-ui/**").hasAnyRole("ADMIN")
                         .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
-                .logout(Customizer.withDefaults())
+                .formLogin(withDefaults())
+                .httpBasic(withDefaults())
+                .logout(withDefaults())
                 // See: https://www.baeldung.com/spring-cors#cors-with-spring-security
-                .cors(Customizer.withDefaults())
+                .cors(withDefaults())
+                .csrf(csrf -> csrf.disable())
                 // See:
                 // https://springframework.guru/using-the-h2-database-console-in-spring-boot-with-spring-security/
                 .headers(headers -> headers.frameOptions().disable())
