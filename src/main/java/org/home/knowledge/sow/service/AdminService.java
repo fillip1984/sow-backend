@@ -2,7 +2,7 @@ package org.home.knowledge.sow.service;
 
 import java.util.List;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 
 import org.home.knowledge.sow.model.Author;
 import org.home.knowledge.sow.model.Comment;
