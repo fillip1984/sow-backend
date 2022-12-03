@@ -48,7 +48,8 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 // CSRF and headers.sameOrigin enable h2 console to work. They can be removed if
                 // we're not using h2 console
-                .csrf(csrf -> csrf.ignoringAntMatchers("/h2-console/**"))
+                // .csrf(csrf -> csrf.ignoringAntMatchers("/h2-console/**"))
+                .csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions().sameOrigin())
                 .exceptionHandling(ex -> ex.accessDeniedPage("/error/accessDenied.html"));
 
