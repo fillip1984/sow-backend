@@ -46,25 +46,25 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        log.warn("Function hasn't been implemented, returning default value");
+        log.trace("Function hasn't been implemented, returning default value");
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        log.warn("Function hasn't been implemented, returning default value");
+        log.trace("Function hasn't been implemented, returning default value");
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        log.warn("Function hasn't been implemented, returning default value");
+        log.trace("Function hasn't been implemented, returning default value");
         return true;
     }
 
     @Override
     public boolean isEnabled() {
-        log.warn("Function hasn't been implemented, returning default value");
+        log.trace("Function hasn't been implemented, returning default value");
         return true;
     }
 }
