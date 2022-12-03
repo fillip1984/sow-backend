@@ -37,9 +37,6 @@ public class UsernameLoggingInterceptor implements HandlerInterceptor {
         if (principal instanceof UserDetails) {
             String username = ((UserDetails) principal).getUsername();
             MDC.put("username", username);
-        } else {
-            String username = principal.toString();
-            MDC.put("username", username);
         }
         return true;
     }
