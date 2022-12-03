@@ -33,7 +33,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // http://phillips-macbook-pro.local:7878/sow/h2-console/login.do?jsessionid=169664501c38e7fe9e26a442a19f3398
         http
                 .authorizeHttpRequests(auth -> auth
                         .antMatchers("/", "/server-home*/**", "/v3/api-docs*/**", "/actuator/health*/**").permitAll()
