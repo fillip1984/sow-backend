@@ -1,7 +1,11 @@
 package org.home.knowledge.sow;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 // controllers and also swagger
 // See: https://github.com/springdoc/springdoc-openapi/issues/236
 public class WebConfig implements WebMvcConfigurer {
+
+    private final List<? extends HandlerInterceptor> interceptors;
+
+    public WebConfig(List<? extends HandlerInterceptor> interceptors) {
+        this.interceptors = interceptors;
+    }
 
     // ended up not needing a view controller of any kind unless we want to lose the
     // .html part when directing to the location
@@ -30,13 +40,16 @@ public class WebConfig implements WebMvcConfigurer {
         log.warn(
                 "CORS has been enabled for local development with React at port 3000 and 5173. THIS CORS CONFIGURATION SHOULD NOT GO TO QA OR PROD ENVIRONMENT");
         // See: https://www.baeldung.com/spring-cors
-        // @formatter:off
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:5173")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .exposedHeaders("Content-Type", "Content-Disposition", "Pragma");
-        // @formatter:on
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        interceptors.forEach(registry::addInterceptor);
     }
 
     // TODO: I love that I finally found a solution to json serialization for
